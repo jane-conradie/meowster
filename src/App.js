@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 
 //implement redux store
 //save to redux store
 //display list from store
 
-function App() {
+function App({appState}) {
 
   const [fact, setFact] = useState();
   const [favourited, setFavourited] = useState();
@@ -67,4 +68,12 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  appState: state,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  addTask: dispatch({ type: 'ADD_TASK' }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
