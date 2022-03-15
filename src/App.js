@@ -1,25 +1,31 @@
 import { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import './App.css';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { setFavourite, unfavourite } from './app/slices/slice';
 //implement redux store
 //save to redux store
 //display list from store
 
-function App({appState}) {
+function App() {
 
   const [fact, setFact] = useState();
   const [favourited, setFavourited] = useState();
   const [favouriteDisplay, setFavouriteDisplay] = useState(false);
+  const favs = useSelector((state) => state.favourite.value)
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getMeowFact()
   }, [])
 
-  function getFavourited(){
-    var favs = localStorage.getItem("Meowfacts");
-    setFavourited(favs);
-  }
+  // function getFavourited(){
+  //   // var favs = localStorage.getItem("Meowfacts");
+  //   // setFavourited(favs);
+
+  //   // get favourited items from Redux store
+    
+  //   setFavourited(favs);
+  // }
 
   function getMeowFact(){
     fetch('https://meowfacts.herokuapp.com/').then(data => data.json()).then(responseData => {
@@ -41,15 +47,17 @@ function App({appState}) {
     }
 
     localStorage.setItem('Meowfacts', JSON.stringify(savedMeows));
+    // this action will dispatch to the store
+    dispatch(setFavourite(fact));
   }
 
   return (
     <div className="App">
       <script src="https://kit.fontawesome.com/aaffc30d60.js" crossOrigin="anonymous"></script>
       <p>{fact}</p>
-      <button onClick={() => {favourite(); getFavourited()}}><i className="fa-solid fa-heart"></i>Purrr</button>
+      <button onClick={() => {favourite()}}><i className="fa-solid fa-heart"></i>Purrr</button>
       <button onClick={() => getMeowFact()}>Meow</button>
-      <button onClick={() => {setFavouriteDisplay(true); getFavourited()}}>Paw</button>
+      <button onClick={() => {setFavouriteDisplay(true)}}>Paw</button>
       {favouriteDisplay && (
         <span className='favourites'>
           <h2>Favourited</h2>
@@ -68,12 +76,4 @@ function App({appState}) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  appState: state,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  addTask: dispatch({ type: 'ADD_TASK' }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

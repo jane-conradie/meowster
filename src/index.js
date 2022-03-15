@@ -3,14 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux';
-import reducer from './reducer';
+// import STORE created && PROVIDER that wraps around app
 import { Provider } from 'react-redux';
-
-const store = createStore(reducer);
+import { store } from './app/store';
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* pass in store as STORE */}
     <Provider store={store}>
       <App />
     </Provider>
