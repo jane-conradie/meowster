@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFavourites } from './app/slices/slice';
@@ -50,12 +50,14 @@ function App() {
   return (
     <div className="App">
       <script src="https://kit.fontawesome.com/aaffc30d60.js" crossOrigin="anonymous"></script>
-      <p>{fact}</p>
-      <button onClick={() => { favourite(); getFavourited()}}><i className="fa-solid fa-heart"></i>Purrr</button>
-      <button onClick={() => getMeowFact()}>Meow</button>
-      <button onClick={() => {setFavouriteDisplay(true)}}>Paw</button>
+      <p className='fact'>{fact}</p>
+      <span className='buttons'>
+        <button onClick={() => { favourite(); getFavourited()}}><i className="fa-solid fa-heart"></i>Purrr</button>
+        <button onClick={() => getMeowFact()}>Meow</button>
+        <button onClick={() => {setFavouriteDisplay(true)}}>Paw</button>
+      </span>
       {favouriteDisplay && (
-        <span className='favourites'>
+        <div className='favourites'>
           <h2>Favourited</h2>
           {
             JSON.parse(favourited).map((fav, index) => {
@@ -64,7 +66,7 @@ function App() {
               )
             })
           }
-        </span>
+        </div>
       )}
     </div>
   );
