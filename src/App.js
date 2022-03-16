@@ -49,13 +49,17 @@ function App() {
 
   return (
     <div className="App">
-      <script src="https://kit.fontawesome.com/aaffc30d60.js" crossOrigin="anonymous"></script>
-      <p className='fact'>{fact}</p>
-      <span className='buttons'>
-        <button onClick={() => { favourite(); getFavourited()}}><i className="fa-solid fa-heart"></i>Purrr</button>
-        <button onClick={() => getMeowFact()}>Meow</button>
-        <button onClick={() => {setFavouriteDisplay(true)}}>Paw</button>
-      </span>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
+
+
+      <div className='generator'>
+        <p className='fact'>{fact}</p>
+        <span className='buttons'>
+          <button onClick={() => { favourite(); getFavourited()}}>Purrr<i className="fas fa-heart button-icon"></i></button>
+          <button onClick={() => getMeowFact()}>Meow<i className="fas fa-plus button-icon"></i></button>
+          <button onClick={() => {setFavouriteDisplay(true)}}>Paw<i className="fas fa-list button-icon"></i></button>
+        </span>
+      </div>
       {favouriteDisplay && (
         <div className='favourites'>
           <div className='heading-container'>
@@ -65,7 +69,7 @@ function App() {
           {
             JSON.parse(favourited).map((fav, index) => {
               return (
-                <p key={index}>{fav}</p>
+                <p key={index} className='favourite-fact'>{fav}</p>
               )
             })
           }
