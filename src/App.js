@@ -1,5 +1,5 @@
 import './App.scss';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFavourites } from './app/slices/slice';
 
@@ -25,11 +25,11 @@ function App() {
     dispatch(setFavourites(favouritedFacts));
   }, [favouritedFacts])
 
-  function getMeowFact(){
+  const getMeowFact = useCallback(() => {
     fetch('https://meowfacts.herokuapp.com/').then(data => data.json()).then(responseData => {
       setFact(responseData.data);
     })
-  }
+  })
 
   function favourite(){
     var savedMeows;
