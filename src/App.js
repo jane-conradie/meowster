@@ -1,31 +1,29 @@
-import { useEffect, useState } from 'react';
 import './App.css';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFavourite, unfavourite } from './app/slices/slice';
-//implement redux store
-//save to redux store
-//display list from store
+import { setFavourites } from './app/slices/slice';
 
 function App() {
-
   const [fact, setFact] = useState();
-  const [favourited, setFavourited] = useState();
   const [favouriteDisplay, setFavouriteDisplay] = useState(false);
-  const favs = useSelector((state) => state.favourite.value)
+  const [favouritedFacts, setFavouritedFacts] = useState([]);
+  const favourited = useSelector((state) => state.favourite.value);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getMeowFact()
+    getMeowFact();
+    getFavourited();
   }, [])
 
-  // function getFavourited(){
-  //   // var favs = localStorage.getItem("Meowfacts");
-  //   // setFavourited(favs);
+  function getFavourited(){
+    var favs = localStorage.getItem("Meowfacts");
+    setFavouritedFacts(favs);
+  }
 
-  //   // get favourited items from Redux store
-    
-  //   setFavourited(favs);
-  // }
+  useEffect(() => {
+    // this action will DISPATCH to the STORE, using the setFavourite REDUCER to update the array
+    dispatch(setFavourites(favouritedFacts));
+  }, [favouritedFacts])
 
   function getMeowFact(){
     fetch('https://meowfacts.herokuapp.com/').then(data => data.json()).then(responseData => {
@@ -47,31 +45,27 @@ function App() {
     }
 
     localStorage.setItem('Meowfacts', JSON.stringify(savedMeows));
-    // this action will dispatch to the store
-    dispatch(setFavourite(fact));
   }
 
   return (
     <div className="App">
       <script src="https://kit.fontawesome.com/aaffc30d60.js" crossOrigin="anonymous"></script>
       <p>{fact}</p>
-      <button onClick={() => {favourite()}}><i className="fa-solid fa-heart"></i>Purrr</button>
+      <button onClick={() => { favourite(); getFavourited()}}><i className="fa-solid fa-heart"></i>Purrr</button>
       <button onClick={() => getMeowFact()}>Meow</button>
       <button onClick={() => {setFavouriteDisplay(true)}}>Paw</button>
       {favouriteDisplay && (
         <span className='favourites'>
           <h2>Favourited</h2>
           {
-            JSON.parse(favourited).map((fav) => {
-              
+            JSON.parse(favourited).map((fav, index) => {
               return (
-                <p>{fav}</p>
+                <p key={index}>{fav}</p>
               )
             })
           }
         </span>
       )}
-      
     </div>
   );
 }
