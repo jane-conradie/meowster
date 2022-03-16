@@ -43,4 +43,28 @@ html {
       border-radius: 1px;
     }
   }
+
+  .favourites {
+    background: white;
+    position: relative;
+    top: 270px;
+    width: 100%;
+    padding: 0;
+
+    .heading-container {
+      background: #d6b69a;
+      height: 60px;
+      display: flex;
+      color: white;
+      justify-content: center;
+
+      .favourites-heading {
+        margin: 12px;
+      }
+    }
+
+    .fact-list {
+      padding: 10px;
+    }
+  }
 }

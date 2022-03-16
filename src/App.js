@@ -58,7 +58,10 @@ function App() {
       </span>
       {favouriteDisplay && (
         <div className='favourites'>
-          <h2>Favourited</h2>
+          <div className='heading-container'>
+            <h2 className='favourites-heading'>Favourited</h2>
+          </div>
+          <div className='fact-list'>
           {
             JSON.parse(favourited).map((fav, index) => {
               return (
@@ -66,6 +69,7 @@ function App() {
               )
             })
           }
+          </div>
         </div>
       )}
     </div>
