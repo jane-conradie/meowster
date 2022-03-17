@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     getMeowFact();
     getFavourited();
-  }, [])
+  }, [getMeowFact])
 
   function getFavourited(){
     var favs = localStorage.getItem("Meowfacts");
@@ -23,13 +23,13 @@ function App() {
   useEffect(() => {
     // this action will DISPATCH to the STORE, using the setFavourite REDUCER to update the array
     dispatch(setFavourites(favouritedFacts));
-  }, [favouritedFacts])
+  }, [favouritedFacts, dispatch])
 
-  const getMeowFact = useCallback(() => {
+  function getMeowFact(){
     fetch('https://meowfacts.herokuapp.com/').then(data => data.json()).then(responseData => {
       setFact(responseData.data);
     })
-  })
+  }
 
   function favourite(){
     var savedMeows;
