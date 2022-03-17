@@ -1,5 +1,5 @@
 import './App.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setFavourites } from './app/slices/slice';
 
