@@ -50,7 +50,6 @@ function App() {
 
   return (
     <div className="App">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
       <div className='generator'>
         <p className='fact'>{fact}</p>
         <span className='buttons'>
