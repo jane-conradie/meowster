@@ -25,14 +25,9 @@ function App() {
     dispatch(setFavourites(favouritedFacts));
   }, [favouritedFacts, dispatch])
 
-  // const getMeowFact = useCallback(() => {
-  //   fetch('https://meowfacts.herokuapp.com/').then(data => data.json()).then(responseData => {
-  //     setFact(responseData.data);
-  //   })
-  // })
-
-  function getMeowFact(){
-    fetch('https://meowfacts.herokuapp.com/').then(data => data.json()).then(responseData => {
+  // async/await theory
+  async function getMeowFact(){
+    await fetch('https://meowfacts.herokuapp.com/').then(data => data.json()).then(responseData => {
       setFact(responseData.data);
     })
   }
@@ -56,8 +51,6 @@ function App() {
   return (
     <div className="App">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
-
-
       <div className='generator'>
         <p className='fact'>{fact}</p>
         <span className='buttons'>
